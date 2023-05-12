@@ -8,7 +8,7 @@ import org.junit.rules.TemporaryFolder
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
-@Ignore
+
 class MainDryRunSpec extends Specification {
 
     @Shared
@@ -42,26 +42,26 @@ class MainDryRunSpec extends Specification {
         System.out = stdout
     }
 
-    def "script should fail due to connection refused"() {
-        when:
-        Main.main '-e', script
-
-        then:
-        JSchException e = thrown()
-        e.cause instanceof ConnectException
-        e.cause.message.startsWith 'Connection refused'
-    }
-
-    @Unroll
-    def "flag #flag should enable dry run"() {
-        when:
-        Main.main flag, '-e', script
-
-        then:
-        stdoutBuffer.toString('UTF-8').contains('Q6zLyqR1MKANtYJ4')
-
-        where:
-        flag << ['--dry-run', '-n']
-    }
+//    def "script should fail due to connection refused"() {
+//        when:
+//        Main.main '-e', script
+//
+//        then:
+//        JSchException e = thrown()
+//        e.cause instanceof ConnectException
+//        e.cause.message.startsWith 'Connection refused'
+//    }
+//
+//    @Unroll
+//    def "flag #flag should enable dry run"() {
+//        when:
+//        Main.main flag, '-e', script
+//
+//        then:
+//        stdoutBuffer.toString('UTF-8').contains('Q6zLyqR1MKANtYJ4')
+//
+//        where:
+//        flag << ['--dry-run', '-n']
+//    }
 
 }
