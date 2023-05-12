@@ -13,7 +13,10 @@ class FilenameUtils {
         if (File.separator == '/') {
             path
         } else {
-            path.replace(File.separatorChar, '/' as char).replaceFirst(~/(\w):/, '/$1')
+            //NATIVE version
+            path.replace(File.separatorChar, '/' as char)
+            //CYGWIN version
+            /* path.replace(File.separatorChar, '/' as char).replaceFirst(~/(\w):/, '/$1') */
         }
     }
 

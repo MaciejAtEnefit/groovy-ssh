@@ -8,7 +8,7 @@ dependencies {
     compile 'org.apache.sshd:sshd-sftp:2.2.0'
     compile 'org.apache.sshd:sshd-scp:2.2.0'
 
-    runtime 'org.bouncycastle:bcpkix-jdk15on:1.61'
+    runtimeOnly 'org.bouncycastle:bcpkix-jdk15on:1.70'
 
     testCompile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
 

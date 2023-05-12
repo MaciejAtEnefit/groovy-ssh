@@ -1,7 +1,8 @@
-from java:8
+FROM eclipse-temurin:11
 
-volume /usr/src/groovy-ssh
-copy . /usr/src/groovy-ssh
-run cd /usr/src/groovy-ssh && ./gradlew -g .gradle shadowJar && cp -a cli/build/libs/gssh.jar /
+VOLUME /usr/src/groovy-ssh
+COPY . /usr/src/groovy-ssh
+WORKDIR /usr/src/groovy-ssh
+RUN sh ./gradlew build
 
-entrypoint ["java", "-jar", "/gssh.jar"]
+
