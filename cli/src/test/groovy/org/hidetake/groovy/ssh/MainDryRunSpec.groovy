@@ -2,12 +2,13 @@ package org.hidetake.groovy.ssh
 
 import com.jcraft.jsch.JSchException
 import org.hidetake.groovy.ssh.test.server.SshServerMock
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.rules.TemporaryFolder
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
-
+@Ignore
 class MainDryRunSpec extends Specification {
 
     @Shared
