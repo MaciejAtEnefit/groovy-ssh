@@ -4,7 +4,7 @@ on:
   pull_request:
   push:
     branches:
-      - master
+      - rel-2.10.1-jsch-0.2.5
 
 jobs:
   gradle:
