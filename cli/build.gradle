@@ -34,15 +34,5 @@ test {
     }
 }
 
-shadowJar {
-    baseName = 'gssh'
-    classifier = ''
-    version = ''
-}
-
-runShadow {
-    args "$projectDir/gssh-example.groovy"
-    workingDir rootDir
-}
 
 check.dependsOn runShadow

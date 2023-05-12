@@ -1,11 +1,12 @@
 package org.hidetake.groovy.ssh.connection
 
+import com.jcraft.jsch.IdentityRepository
 import com.jcraft.jsch.JSch
+import com.jcraft.jsch.SSHAgentConnector
 import com.jcraft.jsch.Session
-import com.jcraft.jsch.agentproxy.ConnectorFactory
-import com.jcraft.jsch.agentproxy.RemoteIdentityRepository
 import groovy.util.logging.Slf4j
 import org.hidetake.groovy.ssh.core.Remote
+import com.jcraft.jsch.AgentIdentityRepository
 
 @Slf4j
 trait UserAuthentication {
@@ -25,7 +26,9 @@ trait UserAuthentication {
         }
 
         if (settings.agent) {
-            jsch.identityRepository = RemoteIdentityRepositoryLocator.get()
+            // Use agent authentication using https://github.com/mwiede/jsch/issues/65#issuecomment-913051572
+            IdentityRepository irepo = new AgentIdentityRepository(new SSHAgentConnector())
+            jsch.identityRepository = irepo
             log.debug("Using SSH agent authentication for $remote")
         } else {
             jsch.identityRepository = null    /* null means the default repository */
@@ -39,18 +42,6 @@ trait UserAuthentication {
                     jsch.addIdentity("identity-${identity.hashCode()}", identity.bytes, null, settings.passphrase?.bytes)
                     log.debug("Using public key authentication for $remote")
                 }
-            }
-        }
-    }
-
-    private static class RemoteIdentityRepositoryLocator {
-        private static instance = null
-
-        static get() {
-            if (instance) {
-                instance
-            } else {
-                instance = new RemoteIdentityRepository(ConnectorFactory.default.createConnector())
             }
         }
     }
