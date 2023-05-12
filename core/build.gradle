@@ -45,6 +45,17 @@ ext {
 }
 
 publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = "https://maven.pkg.github.com/MaciejAtEnefit/groovy-ssh"
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+
     publications {
         pluginIntegration(MavenPublication) {
             from components.java
@@ -84,18 +95,3 @@ publishing {
     }
 }
 
-bintray {
-    user = System.getenv('BINTRAY_USER') ?: findProperty('bintrayUser')
-    key  = System.getenv('BINTRAY_KEY')  ?: findProperty('bintrayKey')
-    publications = ['release']
-    publish = true
-    pkg {
-        repo = 'maven'
-        name = parent.name
-        licenses = [project.license]
-        vcsUrl = project.vcsUrl
-        version {
-            name = project.version
-        }
-    }
-}
